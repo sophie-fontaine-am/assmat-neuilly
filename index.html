@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sophie – Assistante Maternelle à Mouy</title>
+  <meta name="description" content="Sophie, assistante maternelle agréée à Mouy (Oise). Accueil chaleureux, éveil et bienveillance pour vos enfants." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ─────────────────────────────────────────── */
+    :root {
+      --cream:      #FDF6F0;
+      --rose:       #F2C4CE;
+      --rose-deep:  #E8A0B0;
+      --lavender:   #C9B8E8;
+      --lavender-deep: #A998D4;
+      --sage:       #B5C9B7;
+      --sage-deep:  #8FAF92;
+      --text:       #3D3340;
+      --text-light: #7A6E7F;
+      --white:      #FFFFFF;
+      --radius-sm:  12px;
+      --radius-md:  20px;
+      --radius-lg:  32px;
+      --shadow:     0 4px 24px rgba(100, 80, 120, 0.10);
+      --shadow-card:0 2px 12px rgba(100, 80, 120, 0.08);
+    }
+
+    /* ── Reset ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ─────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(253, 246, 240, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1.5px solid var(--rose);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--lavender-deep); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-light);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--lavender-deep); }
+
+    /* burger */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .burger span {
+      display: block;
+      width: 24px;
+      height: 2.5px;
+      background: var(--text);
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+
+    /* ── Hero ─────────────────────────────────────────────── */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Blobs décoratifs */
+    .hero::before, .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.45;
+      z-index: 0;
+    }
+    .hero::before {
+      width: 420px; height: 420px;
+      background: var(--rose);
+      top: -80px; right: -100px;
+    }
+    .hero::after {
+      width: 340px; height: 340px;
+      background: var(--lavender);
+      bottom: -60px; left: -80px;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      max-width: 1000px;
+      width: 100%;
+    }
+    .hero-text { flex: 1; }
+    .hero-badge {
+      display: inline-block;
+      background: var(--sage);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35em 1em;
+      border-radius: 50px;
+      margin-bottom: 1.2rem;
+    }
+    .hero-text h1 {
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.4rem;
+    }
+    .hero-text h1 em {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--lavender-deep);
+    }
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 440px;
+      margin-bottom: 2rem;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn-primary {
+      background: var(--lavender-deep);
+      color: var(--white);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--rose-deep);
+      color: var(--text);
+    }
+
+    /* Illustration hero */
+    .hero-visual {
+      flex-shrink: 0;
+      width: 280px;
+      height: 280px;
+      background: var(--white);
+      border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-12px); }
+    }
+
+    /* ── Sections communes ───────────────────────────────── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lavender-deep);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .section-title em {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--rose-deep);
+    }
+
+    /* ── À propos ─────────────────────────────────────────── */
+    #apropos { background: var(--white); }
+    .apropos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .apropos-text p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+    .apropos-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+    .pill {
+      background: var(--cream);
+      border: 1.5px solid var(--rose);
+      padding: 0.4em 1em;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .apropos-card {
+      background: linear-gradient(135deg, var(--rose) 0%, var(--lavender) 100%);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .stat-item {
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .stat-icon { font-size: 1.6rem; }
+    .stat-text strong { display: block; font-size: 1.1rem; font-weight: 800; }
+    .stat-text span { font-size: 0.85rem; color: var(--text-light); }
+
+    /* ── Infos pratiques ──────────────────────────────────── */
+    #infos { background: var(--cream); }
+    .infos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1.8rem;
+      box-shadow: var(--shadow-card);
+      border-top: 4px solid var(--rose);
+      transition: transform 0.2s;
+    }
+    .info-card:nth-child(2) { border-top-color: var(--lavender); }
+    .info-card:nth-child(3) { border-top-color: var(--sage); }
+    .info-card:nth-child(4) { border-top-color: var(--rose-deep); }
+    .info-card:hover { transform: translateY(-4px); }
+    .info-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .info-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .info-card p { font-size: 0.92rem; color: var(--text-light); }
+
+    /* ── Journée type ─────────────────────────────────────── */
+    #journee { background: var(--white); }
+    .timeline {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--rose), var(--lavender), var(--sage));
+      border-radius: 2px;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 0.8rem 0 0.8rem 0;
+    }
+    .timeline-dot {
+      flex-shrink: 0;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 2px solid var(--rose);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-item:nth-child(2) .timeline-dot { border-color: var(--lavender); }
+    .timeline-item:nth-child(3) .timeline-dot { border-color: var(--sage); }
+    .timeline-item:nth-child(4) .timeline-dot { border-color: var(--lavender-deep); }
+    .timeline-item:nth-child(5) .timeline-dot { border-color: var(--rose-deep); }
+    .timeline-content { padding-top: 0.9rem; }
+    .timeline-time { font-size: 0.8rem; font-weight: 700; color: var(--lavender-deep); letter-spacing: 0.05em; }
+    .timeline-content h3 { font-size: 1rem; font-weight: 800; margin: 0.1rem 0 0.2rem; }
+    .timeline-content p { font-size: 0.92rem; color: var(--text-light); }
+
+    /* ── Contact ──────────────────────────────────────────── */
+    #contact { background: var(--cream); }
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      align-items: start;
+      margin-top: 2rem;
+    }
+    .contact-info p {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    .contact-item-icon {
+      width: 40px; height: 40px;
+      background: var(--rose);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-form {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #E8DFF0;
+      border-radius: var(--radius-sm);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      background: var(--cream);
+      color: var(--text);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--lavender-deep); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit { width: 100%; }
+
+    /* ── Footer ───────────────────────────────────────────── */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.88rem;
+    }
+    footer strong { color: var(--rose); }
+
+    /* ── Mobile ───────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; gap: 0; }
+      .nav-links.open {
+        display: flex;
+        position: absolute;
+        top: 64px; left: 0; right: 0;
+        background: var(--cream);
+        border-bottom: 1.5px solid var(--rose);
+        padding: 1rem 2rem;
+      }
+      .nav-links.open li { padding: 0.6rem 0; border-bottom: 1px solid #f0e8f0; }
+      .burger { display: flex; }
+
+      .hero-inner { flex-direction: column; text-align: center; gap: 2rem; }
+      .hero-ctas { justify-content: center; }
+      .hero-visual { width: 200px; height: 200px; font-size: 5rem; }
+
+      .apropos-grid { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; }
+      .timeline::before { left: 24px; }
+      .timeline-dot { width: 48px; height: 48px; font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Sophie <span>✿</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+      <li><a href="#journee">Ma journée</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="hero-badge">Assistante maternelle agréée · Mouy (60)</span>
+        <h1>Un accueil <em>doux</em><br>pour vos tout-petits</h1>
+        <p class="hero-subtitle">
+          Je m'appelle Sophie et j'accueille vos enfants à mon domicile avec bienveillance, dans un cadre chaleureux pensé pour leur épanouissement.
+        </p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Me contacter</a>
+          <a href="#infos" class="btn btn-outline">Infos pratiques</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">🌸</div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="apropos">
+    <div class="container">
+      <div class="apropos-grid">
+        <div class="apropos-text">
+          <span class="section-label">À propos</span>
+          <h2 class="section-title">Qui <em>suis-je</em> ?</h2>
+          <p>
+            Assistante maternelle agréée par le Conseil Départemental de l'Oise, j'accueille les enfants à mon domicile à Mouy. Mon engagement : offrir un espace sécurisant, stimulant et plein de douceur pour chaque enfant que j'accompagne.
+          </p>
+          <p>
+            Chaque journée est rythmée par des activités d'éveil adaptées à l'âge de l'enfant : jeux, lecture, activités manuelles, sorties… dans le respect de son rythme et de ses besoins.
+          </p>
+          <div class="apropos-pills">
+            <span class="pill">🎨 Activités créatives</span>
+            <span class="pill">📚 Éveil et lecture</span>
+            <span class="pill">🌿 Sorties nature</span>
+            <span class="pill">🍽️ Repas maison</span>
+          </div>
+        </div>
+        <div class="apropos-card">
+          <div class="stat-item">
+            <span class="stat-icon">🏅</span>
+            <div class="stat-text">
+              <strong>Agréée</strong>
+              <span>Conseil Départemental de l'Oise</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">👶</span>
+            <div class="stat-text">
+              <strong>Dès 2 mois</strong>
+              <span>Jusqu'à 6 ans</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">🚑</span>
+            <div class="stat-text">
+              <strong>Premiers secours</strong>
+              <span>Formation PSC1 à jour</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">📍</span>
+            <div class="stat-text">
+              <strong>Mouy</strong>
+              <span>Oise (60250)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOS PRATIQUES -->
+  <section id="infos">
+    <div class="container">
+      <span class="section-label">Organisation</span>
+      <h2 class="section-title">Infos <em>pratiques</em></h2>
+      <div class="infos-grid">
+        <div class="info-card">
+          <div class="info-icon">🕗</div>
+          <h3>Horaires d'accueil</h3>
+          <p>Du lundi au vendredi<br>7h30 – 18h30<br><em>Sur demande selon disponibilités</em></p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">👧</div>
+          <h3>Âges acceptés</h3>
+          <p>De 2 mois à 6 ans<br>Nombre de places limité<br><em>Me contacter pour disponibilités</em></p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">💶</div>
+          <h3>Tarification</h3>
+          <p>Selon la Convention Collective<br>Aide CMG de la CAF possible<br><em>Devis personnalisé sur demande</em></p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📋</div>
+          <h3>Documents requis</h3>
+          <p>Carnet de santé, vaccins à jour<br>Contrat d'accueil PAJE<br><em>Je vous guide dans les démarches</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNÉE TYPE -->
+  <section id="journee">
+    <div class="container">
+      <span class="section-label">Organisation</span>
+      <h2 class="section-title">Une journée <em>type</em></h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">🌅</div>
+          <div class="timeline-content">
+            <div class="timeline-time">7h30 – 9h00</div>
+            <h3>Accueil & temps calme</h3>
+            <p>Arrivée en douceur, jeux libres, temps d'adaptation pour chaque enfant.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">🎨</div>
+          <div class="timeline-content">
+            <div class="timeline-time">9h00 – 10h30</div>
+            <h3>Activités d'éveil</h3>
+            <p>Peinture, modelage, lecture, chansons… adaptées à l'âge et aux envies.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">🌿</div>
+          <div class="timeline-content">
+            <div class="timeline-time">10h30 – 11h30</div>
+            <h3>Sortie & grand air</h3>
+            <p>Parc, jardin, promenade en poussette selon la météo.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">🍽️</div>
+          <div class="timeline-content">
+            <div class="timeline-time">11h30 – 14h00</div>
+            <h3>Repas & sieste</h3>
+            <p>Repas fourni par les parents (ou préparé maison), suivi d'un temps de repos adapté.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">🧸</div>
+          <div class="timeline-content">
+            <div class="timeline-time">14h00 – 18h30</div>
+            <h3>Après-midi & retour</h3>
+            <p>Jeux, activités créatives, goûter, et restitution aux parents avec un petit bilan de la journée.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <span class="section-label">Me contacter</span>
+      <h2 class="section-title">Discutons de <em>votre projet</em></h2>
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <p>Une question sur mes disponibilités, mes tarifs ou mon mode de fonctionnement ? N'hésitez pas à me contacter, je vous répondrai dans les plus brefs délais.</p>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <span>Mouy, Oise (60250)</span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📧</div>
+            <span>sophie.assmat.mouy@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📞</div>
+            <span>06 XX XX XX XX</span>
+          </div>
+        </div>
+        <div class="contact-form">
+          <!-- Remplace l'action par ton endpoint Formspree -->
+          <form action="https://formspree.io/f/XXXXXXXX" method="POST">
+            <div class="form-group">
+              <label for="nom">Votre nom</label>
+              <input type="text" id="nom" name="nom" placeholder="Marie Dupont" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Adresse e-mail</label>
+              <input type="email" id="email" name="email" placeholder="marie@exemple.fr" required />
+            </div>
+            <div class="form-group">
+              <label for="tel">Téléphone (optionnel)</label>
+              <input type="tel" id="tel" name="telephone" placeholder="06 XX XX XX XX" />
+            </div>
+            <div class="form-group">
+              <label for="message">Votre message</label>
+              <textarea id="message" name="message" placeholder="Âge de votre enfant, date souhaitée…" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Envoyer le message 🌸</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>Sophie</strong> · Assistante maternelle agréée · Mouy (Oise) · © 2025</p>
+  </footer>
+
+  <script>
+    // Burger menu
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+  </script>
+
+</body>
+</html>
